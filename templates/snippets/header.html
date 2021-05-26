@@ -1,0 +1,64 @@
+{% load static %}
+
+<!--px="padding x-axis", md='medium', mb='margin bottom' bg='background' sm='small'-->
+<div class="d-flex p-3 px-md-4 mb-4 bg-white border-botton shadow-sm">
+    <!-- MEDIUM+ screens-->
+    <div class="d-none d-md-flex flex-row my-auto flex-grow-1 align-items-center">
+
+        <!--col1-->
+        <h5 class="mr-3 font-weight-normal justify-content-start">
+            <a class="p-2 text-dark" href="{% url 'home' %}">Home</a>
+        </h5>
+
+        <!--col2-->
+        <form class="search-bar justify-content-start " action="">
+            <input type="text" class="form-control" name="q" id="id_q_large" placeholder="search..">
+        </form>
+
+        <!--col3-->
+        <div class="d-flex flex-row-reverse flex-grow-1">
+            <nav>
+                
+              
+                    <div class="dropdown dropleft show p-2">
+                        <div class="d-flex flex-row">
+                            <!--chat notification-->
+                            <div class="btn-group drop-left">
+                                <div class="d-flex notifications-icon-container rounded-circle align-items-center mr-3" id="id_chat_notification_dropdown_toggle" data-toggle="dropdown">
+                                    <span id="id_chat_notifications_count" class="notify-badge"></span>
+                                    <span class="d-flex material-icons notifications-material-icon m-auto align-items-center">chat</span>
+                                    <div class="drop-down-menu scrollable-menu" aria-labelledby="id_chat_notification_dropdown_toggle" id="id_chat_notificatons_container">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--general notification-->
+                            <div class="btn-group drop-left">
+                                <div class="d-flex notifications-icon-container rounded-circle align-items-center mr-3" id="id_notification_dropdown_toggle" data-toggle="dropdown">
+                                    <span id="id_general_notifications_count" class="notify-badge"></span>
+                                    <span class="d-flex material-icons notifications-material-icon m-auto align-items-center">notifications</span>
+                                    <div class="drop-down-menu scrollable-menu" aria-labelledby="id_notification_dropdown_toggle" id="id_general_notificatons_container">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--contact-->
+                            <div class="btn-group dropleft">
+                                <img class="account-image rounded-circle m-auto d-block dropdown-toggle" id="id_profile_links" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" src="{% static 'image/dummy_image.png' %}" alt="My logo" width="40px" height="40px">
+                                <div class="dropdown-menu" aria-labelledby="id_profile_links">
+                                    <a class="dropdown-item" href="#">Account</a>
+                                    <a class="dropdown-item" href="#">Logout</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+               
+                    
+            </nav>
+        </div>
+    </div>
+    <!--SMALL+ screens-->
+</div>
