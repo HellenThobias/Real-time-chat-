@@ -28,6 +28,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODELS = "account.Account"
+
 
 # Application definition
 
@@ -41,7 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     # my apps
-    'personal'
+    'personal',
+    'account',
 ]
 
 MIDDLEWARE = [
