@@ -1,5 +1,6 @@
 {% load static %}
 
+
 <!--px="padding x-axis", md='medium', mb='margin bottom' bg='background' sm='small'-->
 <div class="d-flex p-3 px-md-4 mb-4 bg-white border-botton shadow-sm">
     <!-- MEDIUM+ screens-->
@@ -32,6 +33,8 @@
                             </div>
                         </div>
 
+
+                        
                         <!--general notification-->
                         <div class="btn-group drop-left">
                             <div class="d-flex notifications-icon-container rounded-circle align-items-center mr-3" id="id_notification_dropdown_toggle" data-toggle="dropdown">
@@ -44,20 +47,23 @@
                         </div>
 
                         <!--contact-->
+                       
+                          
                         <div class="btn-group dropleft">
-                            <img class="account-image rounded-circle m-auto d-block dropdown-toggle" id="id_profile_links" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" src="{% static 'image/dummy_image.png' %}" alt="My logo" width="40px" height="40px">
-                            <div class="dropdown-menu" aria-labelledby="id_profile_links">
-                                <a class="dropdown-item" href="#">Account</a>
-                                <a class="dropdown-item" href="#">Logout</a>
-                            </div>
+                           
+                                 <a href="#"><span> <img class="account-image rounded-circle m-auto d-block" src="{% static 'image/dummy_image.png' %}" alt="Account" width="40" height="40"></span></a>
+                               
+                                 <a href="{% url 'logout' %}">Logout</a>
+                                
+                            
                         </div>
                     </div>
                 </div>
             
            
                 {% else %}
-                    <a href="#">Login</a>
-                    <a href="#">Register</a>
+                    <a href="{% url 'login' %}">Login</a>
+                    <a href="{% url 'register' %}">Register</a>
 
                 {% endif %}
                     
@@ -91,14 +97,13 @@
 						<div class="btn-group dropleft">
 							<img class="account-image rounded-circle m-auto d-block dropdown-toggle" id="id_profile_links" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" src="{{request.user.profile_image.url}}" alt="codingwithmitch logo" width="40" height="40">
 							<div class="dropdown-menu" aria-labelledby="id_profile_links">
-								<a class="dropdown-item" href="{% url 'account:view' user_id=request.user.id %}">Account</a>
 							</div>
 						</div>
 					</div>
 				</div>
 				{% else %}
-					<a class="p-2 text-dark" href="#">Login</a>
-					<a class="btn btn-outline-primary m-2" href="#">Register</a>
+					<a class="p-2 text-dark" href="{% url 'login' %}">Login</a>
+					<a class="btn btn-outline-primary m-2" href="{% url 'register' %}">Register</a>
 				{% endif %}	
 			</nav>
 	  	</div>
