@@ -145,7 +145,7 @@ MEDIA_URL = '/media/'
 
 # cdn stands for content delivery network
 STATIC_ROOT = BASE_DIR/ 'static_cdn'
-MEDIA_ROOT = BASE_DIR/ 'media_cdn'
+MEDIA_ROOT = BASE_DIR/ 'media'
 
 TEMP = BASE_DIR/'media_cdn/temp'
 

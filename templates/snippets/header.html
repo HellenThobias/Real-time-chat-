@@ -50,12 +50,12 @@
                        
                           
                         <div class="btn-group dropleft">
-                           
-                                 <a href="{% url 'account:view' user_id=request.user.id %}"><span> <img class="account-image rounded-circle m-auto d-block" src="{% static 'image/dummy_image.png' %}" alt="Account" width="40" height="40"></span></a>
-                               
-                                 <a href="{% url 'logout' %}">Logout</a>
-                                
-                            
+                            {% if request.user.profile_image %}
+                            <a href="{% url 'account:view' user_id=request.user.id %}"><span> <img class="account-image rounded-circle m-auto d-block" src="{{ request.user.profile_image.url }}" alt="Account" width="40" height="40"></span></a>
+                            {% else %}
+                            <a href="{% url 'account:view' user_id=request.user.id %}"><span> <img class="account-image rounded-circle m-auto d-block" src="{% static 'image/dummy_image.png' %}" alt="Account" width="40" height="40"></span></a>
+                            {% endif %}
+                            <a href="{% url 'logout' %}">Logout</a>
                         </div>
                     </div>
                 </div>
