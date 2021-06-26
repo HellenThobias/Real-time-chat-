@@ -107,3 +107,21 @@ def account_view(request, *args, **kwargs):
         #context[BASE_URL] = "http://127.0.0.1:8000"
 
         return render(request, "account/account.html", context)
+
+
+def account_search_view(request, *args, **kwargs):
+    context = {}
+
+    if request.method == "GET":
+        search_query = request.GET.get("q")
+        if len(search_query) > 0:
+            # filter function returns a query set multiple rows and icontains normalizes seaech as all lower case and upper case distinct function eliminates duplicates
+            search_results = Account.objects.filter(email__icontains=search_query).filter(username__icontains=search_query).distinct()
+            print(search_results)
+            accounts = [] # will be as [(acc1,True),(acc2,False), ...] depends either you are friends or not
+            for account in search_results:
+                accounts.append((account,False))
+            context['accounts'] = accounts
+
+    return render(request, "account/search_results.html", context)
+
