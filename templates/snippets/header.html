@@ -1,71 +1,83 @@
 {% load static %}
 
+<style>
+    button {
+        background-color: #2dbbf3; 
+        color: black; 
+        border: 2px solid #2dbbf3;
+      }
+</style>
 
 <!--px="padding x-axis", md='medium', mb='margin bottom' bg='background' sm='small'-->
 <div class="d-flex p-3 px-md-4 mb-4 bg-white border-botton shadow-sm">
-    <!-- MEDIUM+ screens-->
-    <div class="d-none d-md-flex flex-row my-auto flex-grow-1 align-items-center">
+    {% if request.user.is_authenticated %}
+        <!-- MEDIUM+ screens-->
+        <div class="d-none d-md-flex flex-row my-auto flex-grow-1 align-items-center">
 
-        <!--col1-->
-        <h5 class="mr-3 font-weight-normal justify-content-start">
-            <a class="p-2 text-dark" href="{% url 'home' %}">Home</a>
-        </h5>
+            <!--col1-->
+            <h5 class="mr-3 font-weight-normal justify-content-start">
+                <a class="p-2 text-dark" href="{% url 'home' %}"><img src="{% static 'image/home.jpeg' %}" alt="HOME" height="40px" width="40px"></a>
+            </h5>
 
-        <!--col2-->
-        <form class="search-bar justify-content-start " action="" onsubmit="return executeQuery()">
-            <input type="text" class="form-control" name="q" id="id_q_large" placeholder="search..">
-        </form>
-
-        <!--col3-->
-        <div class="d-flex flex-row-reverse flex-grow-1">
-            <nav>        
-                {% if request.user.is_authenticated %}
-                <div class="dropdown dropleft show p-2">
-                    <div class="d-flex flex-row">
-                        <!--chat notification-->
-                        <div class="btn-group drop-left">
-                            <div class="d-flex notifications-icon-container rounded-circle align-items-center mr-3" id="id_chat_notification_dropdown_toggle" data-toggle="dropdown">
-                                <span id="id_chat_notifications_count" class="notify-badge"></span>
-                                <span class="d-flex material-icons notifications-material-icon m-auto align-items-center">chat</span>
-                                <div class="drop-down-menu scrollable-menu" aria-labelledby="id_chat_notification_dropdown_toggle" id="id_chat_notificatons_container">
-
-                                </div>
-                            </div>
-                        </div>
-
-
-                        
-                        <!--general notification-->
-                        <div class="btn-group drop-left">
-                            <div class="d-flex notifications-icon-container rounded-circle align-items-center mr-3" id="id_notification_dropdown_toggle" data-toggle="dropdown">
-                                <span id="id_general_notifications_count" class="notify-badge"></span>
-                                <span class="d-flex material-icons notifications-material-icon m-auto align-items-center">notifications</span>
-                                <div class="drop-down-menu scrollable-menu" aria-labelledby="id_notification_dropdown_toggle" id="id_general_notificatons_container">
-                                    
-                                </div>
-                            </div>
-                        </div>
-
-                        <!--contact-->
-                       
-                          
-                        <div class="btn-group dropleft">
-                            {% if request.user.profile_image %}
-                            <a href="{% url 'account:view' user_id=request.user.id %}"><span> <img class="account-image rounded-circle m-auto d-block" src="{{ request.user.profile_image.url }}" alt="Account" width="40" height="40"></span></a>
-                            {% else %}
-                            <a href="{% url 'account:view' user_id=request.user.id %}"><span> <img class="account-image rounded-circle m-auto d-block" src="{% static 'image/dummy_image.png' %}" alt="Account" width="40" height="40"></span></a>
-                            {% endif %}
-                            <a href="{% url 'logout' %}">Logout</a>
-                        </div>
-                    </div>
+            <!--col2-->
+            <form class="search-bar justify-content-start " action="" onsubmit="return executeQuery()">
+                <div class="d-flex flex-row ">
+                    <input class="m-auto" type="text" class="form-control" name="q" id="id_q_large" placeholder="search..">
+                    <button class="m-auto" type="submit">search</button>
                 </div>
             
-           
-                {% else %}
-                    <a href="{% url 'login' %}">Login</a>
-                    <a href="{% url 'register' %}">Register</a>
+            </form>
 
-                {% endif %}
+            <!--col3-->
+            <div class="d-flex flex-row-reverse flex-grow-1">
+                <nav>        
+                
+                    <div class="dropdown dropleft show p-2">
+                        <div class="d-flex flex-row">
+                            <!--chat notification-->
+                            <div class="btn-group drop-left">
+                                <div class="d-flex notifications-icon-container rounded-circle align-items-center mr-3" id="id_chat_notification_dropdown_toggle" data-toggle="dropdown">
+                                    <span id="id_chat_notifications_count" class="notify-badge"></span>
+                                    <span class="d-flex material-icons notifications-material-icon m-auto align-items-center">chat</span>
+                                    <div class="drop-down-menu scrollable-menu" aria-labelledby="id_chat_notification_dropdown_toggle" id="id_chat_notificatons_container">
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            
+                            <!--general notification-->
+                            <div class="btn-group drop-left">
+                                <div class="d-flex notifications-icon-container rounded-circle align-items-center mr-3" id="id_notification_dropdown_toggle" data-toggle="dropdown">
+                                    <span id="id_general_notifications_count" class="notify-badge"></span>
+                                    <span class="d-flex material-icons notifications-material-icon m-auto align-items-center">notifications</span>
+                                    <div class="drop-down-menu scrollable-menu" aria-labelledby="id_notification_dropdown_toggle" id="id_general_notificatons_container">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--contact-->
+                        
+                            
+                            <div class="btn-group dropleft">
+                                {% if request.user.profile_image %}
+                                <a href="{% url 'account:view' user_id=request.user.id %}"><span> <img class="account-image rounded-circle m-auto d-block" src="{{ request.user.profile_image.url }}" alt="Account" width="40" height="40"></span></a>
+                                {% else %}
+                                <a href="{% url 'account:view' user_id=request.user.id %}"><span> <img class="account-image rounded-circle m-auto d-block" src="{% static 'image/dummy_image.png' %}" alt="Account" width="40" height="40"></span></a>
+                                {% endif %}
+                                <a href="{% url 'logout' %}">Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                
+            
+    {% else %}
+        <a href="{% url 'login' %}">Login </a>
+        <a href="{% url 'register' %}"> Register</a>
+
+    {% endif %}
                     
                     
                    
