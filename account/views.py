@@ -102,8 +102,8 @@ def account_view(request, *args, **kwargs):
             is_self = False 
 
 
-        context[is_self] = is_self
-        context[is_friend] = is_friend
+        context['is_self'] = is_self
+        context['is_friend'] = is_friend
         #context[BASE_URL] = "http://127.0.0.1:8000"
 
         return render(request, "account/account.html", context)
@@ -133,7 +133,7 @@ def edit_account_view(request, *args, **kwargs):
     try:
         account = Account.objects.get(pk=user_id)
     except Account.DoesNotExist:
-        return HttpResponse("Something wnt wrong")
+        return HttpResponse("Something went wrong")
 
     if account.pk != request.user.pk:
         return("You cannot edit someone else profile")
@@ -141,6 +141,8 @@ def edit_account_view(request, *args, **kwargs):
     if request.POST:
         form = AccountUpdateForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
+            # account.profile_image.delete()
+            print("deleted")
             form.save()
             return redirect("account:view", user_id=account.pk)
         else:
@@ -157,7 +159,7 @@ def edit_account_view(request, *args, **kwargs):
 
 
     else:
-        form = AccountUpdateForm(request.POST, instance=request.user, 
+        form = AccountUpdateForm(
             initial={
                 "id":account.pk,
                 "email":account.email,
