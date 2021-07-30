@@ -157,7 +157,7 @@
 
 			</div>
 
-			{#% if friend_requests %#}
+			{% if friend_requests %}
 			<div class="card m-2 px-4 pb-4">
 				<!-- Friend requests -->
 		  		<div class="d-flex flex-column pt-4">
@@ -168,7 +168,7 @@
 					</a>
 				</div>
 			</div>
-			{#% endif %#}
+			{% endif %}
 
 			{% if is_friend %}
 				<div class="d-flex flex-row align-items-center btn btn-primary m-2 px-4" onclick="createOrReturnPrivateChat('{{id}}')">
