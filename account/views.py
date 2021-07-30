@@ -1,10 +1,21 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.contrib.auth import login, authenticate,logout
-from django.conf import Settings, settings 
+from django.conf import settings 
+from django.core.files.storage import default_storage 
+from django.core.files.storage import FileSystemStorage 
+import os 
+import cv2
+import json 
+import base64
+import requests 
+from django.core import files
+
 
 from account.forms import AccountUpdateForm, RegistrationForm,AccountAuthenticationForm
 from account.models import Account
+
+TEMP_PROFILE_IMAGE_NAME = "temp_profile_image.png"
 
 def register_view(request, *args, **kwargs):
     user = request.user
@@ -141,7 +152,7 @@ def edit_account_view(request, *args, **kwargs):
     if request.POST:
         form = AccountUpdateForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
-            # account.profile_image.delete()
+            account.profile_image.delete()
             print("deleted")
             form.save()
             return redirect("account:view", user_id=account.pk)
@@ -171,3 +182,30 @@ def edit_account_view(request, *args, **kwargs):
         context['form'] = form
     context['DATA_UPLOAD_MAX_MEMORY_SIZE'] = settings.DATA_UPLOAD_MAX_MEMORY_SIZE
     return render(request, "account/edit_account.html", context)
+
+
+def save_temp_profile_image_from_base64String(imageString, user):
+    INCORRECT_PADDING_EXCEPTION = "Incorrect padding"
+    try:
+        if not os.path.exists(settings.TEMP):
+            os.mkdir(settings.TEMP)
+        if not os.path.exists(f"{settings.TEMP}/{user.pk}"):
+            os.mkdir(f"{settings.TEMP}/{user.pk}")
+        url = os.path.join(f"{settings.TEMP}/{user.pk}", TEMP_PROFILE_IMAGE_NAME)
+
+    except Exception as e:
+            raise e
+
+
+
+
+def crop_image(request, *args, **kwargs):
+    payload = {}
+    user = request.user
+    if request.POST and user.is_authenticated:
+        try:
+            imageString = request.POST.get("image")
+            url = save_temp_profile_image_from_base64String(imageString, user)
+        
+        except Exception as e:
+            raise e
