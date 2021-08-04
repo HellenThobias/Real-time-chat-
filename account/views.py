@@ -122,7 +122,7 @@ def account_view(request, *args, **kwargs):
         friend_requests = None
         user = request.user
         if user.is_authenticated and user != account:
-            is_self = False 
+            is_self = False
             if friends.filter(pk=user.id):
                 is_friend = True
             else:
@@ -133,7 +133,7 @@ def account_view(request, *args, **kwargs):
                     context['pending_friend_request_id'] = get_friend_request_or_false(sender=account, receiver=user).id 
                 
                 #CASE 2 Request has been sent from you to them: FriendRequestStatus.YOU_SENT_TO_THEM
-                elif get_friend_request_or_false(sender=account, receiver= user) != False:
+                elif get_friend_request_or_false(sender=user, receiver= account) != False:
                     request_sent = FriendRequestStatus.YOU_SENT_TO_THEM.value
 
                 #CASE 3 No request has been sent. FriendRequestStatus. NO_REQUEST_SENT
@@ -149,7 +149,7 @@ def account_view(request, *args, **kwargs):
             except:
                 pass
 
-
+        print(request_sent)
         context['is_self']         = is_self
         context['is_friend']       = is_friend
         context['BASE_URL']        = "http://127.0.0.1:8000"

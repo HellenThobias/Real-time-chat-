@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate
+from django.core.exceptions import ValidationError
 from django.forms import fields
 
 from account.models import Account
@@ -45,7 +46,7 @@ class AccountAuthenticationForm(forms.ModelForm):
             email = self.cleaned_data['email']
             password = self.cleaned_data['password']
             if not authenticate(email=email, password=password):
-                raise forms.validationError("invalid login")
+                raise ValidationError("invalid login")
 
 
 class AccountUpdateForm(forms.ModelForm):
