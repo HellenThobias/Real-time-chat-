@@ -5,6 +5,21 @@ from django.shortcuts import render
 from account.models import Account
 import json
 
+@login_required
+def friend_requests_view(request, *args, **kwargs):
+    context = {}
+    user = request.user
+    user_id = kwargs.get("user_id")
+    account = Account.objects.get(pk=user_id)
+    if account == user:
+        friend_requests = FriendRequest.objects.filter(receiver=account, is_active=True)
+        context['friend_requests'] = friend_requests
+    
+    else:
+        return HttpResponse("You can't view another user friend requests")
+    
+    return render(request,"friend/friend_requests.html", context)
+
 
 
 @login_required
