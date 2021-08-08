@@ -96,3 +96,27 @@ def remove_friend(request, *args, **kwargs):
     else:
         payload ["response"] = "invalid method"
     return HttpResponse(json.dumps(payload), content_type="application/json")
+
+@login_required
+def decline_friend_request(request, *args, **kwargs):
+    user = request.user
+    payload = {}
+    if request.method == "GET":
+        friend_request_id = kwargs.get("friend_request_id")
+        if friend_request_id:
+            friend_request = FriendRequest.objects.get(pk=friend_request_id)
+            # confirm that it is a correct request
+            if friend_request.receiver == user:
+                if friend_request:
+                    #found the friend request now declineit
+                    friend_request.decline()
+                    payload["response"] = "Friend request declined."
+                else:
+                    payload["response"] = "Something went wrong."
+            else:
+                payload["response"] = "That is not your friend request to decline"
+        else:
+            payload["response"] = "Unable to decline that friend request."
+    else:
+        payload["response"] = "invalid method"
+    return HttpResponse(json.dumps(payload), content_type="application/json")
