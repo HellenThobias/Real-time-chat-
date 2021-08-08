@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from friends.models import FriendRequest
+from friends.models import FriendList, FriendRequest
 from django.http import HttpResponse
 from django.shortcuts import render
 from account.models import Account
@@ -78,4 +78,21 @@ def accept_friend_request(request, *args, **kwargs):
             payload["response"] = "Unable to accept that friend request."
     else:
         payload["response"] = "invalid method"
+    return HttpResponse(json.dumps(payload), content_type="application/json")
+
+@login_required
+def remove_friend(request, *args, **kwargs):
+    user = request.user
+    payload = {}
+    if request.method == "POST":
+        user_id = request.POST.get("receiver_user_id")
+        if user_id:
+            removee = Account.objects.get(pk=user_id)
+            friend_list =FriendList.objects.get(user=user)
+            friend_list.unfriend(removee)
+            payload["response"] = "Successfully Removed."
+        else:
+            payload["response"] = "Something went wrong unfriend failed."
+    else:
+        payload ["response"] = "invalid method"
     return HttpResponse(json.dumps(payload), content_type="application/json")
