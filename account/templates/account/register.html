@@ -1,80 +1,99 @@
-
 {% extends 'base.html' %}
+
 {% load static %}
 
 {% block content %}
 
-
-<style type="text/css">
-
-  .card-signin {
-	  width: 100%;
-	  max-width: 400px;
-	  padding: 15px;
-	  margin: auto;
-  }
+<!doctype html>
+<html lang="en">
   
-  .form-signin input[type="email"] {
-    margin-bottom: 10px;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
-  }
-  .form-signin input[type="text"] {
-    margin-bottom: 10px;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
-  }
-  .form-signin input[type="password"] {
-    margin-bottom: -1px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-  }
+  	<title>Login</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900&display=swap" rel="stylesheet">
 
-</style>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
 
-<div class="container-fluid">
-	<div class="row justify-content-center">
-		<div class="card card-signin">
-		  <div class="card-body">
-		    <form class="form-signin" method="post">{% csrf_token %}
-				<div class="d-flex flex-column pb-3">
-				<img class="img-fluid mx-auto d-block" src="{% static 'image/profile_image.png' %}" alt="codingwithmitch logo" width="72" height="72">
+	
+	<section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+				<!-- <div class="col-md-6 text-center mb-5">
+					<h2 class="heading-section">OneClickChat</h2>
+				</div> -->
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-md-12 col-lg-10">
+					<div class="wrap d-md-flex">
+						<div class="text-wrap p-4 p-lg-5 text-center d-flex align-items-center">
+							<div class="text w-100">
+								<h2>Welcome to OneClickChat</h2>
+								<p>Have an account?</p>
+								<a href="{% url 'login' %}" class="btn btn-white btn-outline-white">Sign In</a>
+							</div>
+			      		</div>
+						<div class="login-wrap p-4 p-lg-5 order-md-last">
+			      			<div class="d-flex">
+			      				<div class="w-100">
+			      				<h3 class="mb-4">Sign Up</h3>
+			      				</div>
+								<div class="w-100">
+									<p class="social-media d-flex justify-content-end">
+										<a href="#" class="social-icon d-flex align-items-center justify-content-center"><span class="fa fa-facebook"></span></a>
+										<a href="#" class="social-icon d-flex align-items-center justify-content-center"><span class="fa fa-twitter"></span></a>
+									</p>
+								</div>
+			      			</div>
+							<form class="form-signin" method="post">{% csrf_token %}
+								<input type="email" name="email" id="inputEmail" class="form-control mb-3" placeholder="Email address" required autofocus>
+
+								<input type="text" name="username" id="inputUsername" class="form-control mb-3" placeholder="Username" required>
+				
+								<input type="password" name="password1" id="inputPassword1" class="form-control mb-3" placeholder="Password" required>
+				
+								<input type="password" name="password2" id="inputPassword2" class="form-control mb-3" placeholder="Confirm password" required>
+				
+								{% for field in registration_form %}
+								<p>
+								{% for error in field.errors %}
+								<p style="color: red">{{ error }}</p>
+								{% endfor %}
+								</p>
+								{% endfor %}
+								{% if registration_form.non_field_errors %}
+								<div style="color: red">
+									<p>{{registration_form.non_field_errors}}</p>
+								</div>
+				
+								{% endif %}
+
+								<button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
+
+									<div class="form-group d-md-flex">
+										<div class="w-50 text-left">
+											<label class="checkbox-wrap checkbox-primary mb-0">Remember Me
+													<input type="checkbox" checked>
+													<span class="checkmark"></span>
+											</label>
+										</div>
+										
+									</div>
+							</form>
+		        		</div>
+		      		</div>
 				</div>
-				<input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-
-				<input type="text" name="username" id="inputUsername" class="form-control" placeholder="Username" required>
-
-				<input type="password" name="password1" id="inputPassword1" class="form-control" placeholder="Password" required>
-
-				<input type="password" name="password2" id="inputPassword2" class="form-control" placeholder="Confirm password" required>
-
-				{% for field in registration_form %}
-				<p>
-				{% for error in field.errors %}
-				<p style="color: red">{{ error }}</p>
-				{% endfor %}
-				</p>
-				{% endfor %}
-				{% if registration_form.non_field_errors %}
-				<div style="color: red">
-					<p>{{registration_form.non_field_errors}}</p>
-				</div>
-
-				{% endif %}
-
-				<button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
-
-				</form>
-		  </div>
+			</div>
 		</div>
-		
-	</div>
-</div>
+	</section>
+
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/popper.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
 
 
-
-
-
-
-{% endblock content %}
+</html>
+{% endblock %}

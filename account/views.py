@@ -149,14 +149,23 @@ def account_view(request, *args, **kwargs):
             except:
                 pass
 
-        print(request_sent)
+        print(account)
         context['is_self']         = is_self
+        context['account']         = account
         context['is_friend']       = is_friend
         context['BASE_URL']        = "http://127.0.0.1:8000"
         context['request_sent']    = request_sent
         context['friend_requests'] = friend_requests
 
         return render(request, "account/account.html", context)
+
+
+def user_friends(request, user_id):
+    context = {
+        "friends" : Account.objects.get(pk=user_id).friends.all()
+    }
+
+    return render(request, "account/user_friends.html", context)
 
 
 def account_search_view(request, *args, **kwargs):
@@ -172,6 +181,7 @@ def account_search_view(request, *args, **kwargs):
             for account in search_results:
                 accounts.append((account,False))
             context['accounts'] = accounts
+            
 
     return render(request, "account/search_results.html", context)
 

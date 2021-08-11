@@ -4,6 +4,9 @@
 {% block content %}
 
 <style type="text/css">
+	a {
+		color: hotpink;
+	}
 	.image-container{
 		max-width: 250px;
 		height: auto;
@@ -16,11 +19,15 @@
 		cursor: pointer;
 	}
 	.friends-icon{
-		color: #4287f5;
+		color: #fc0394;
 		font-size: 40px;
 	}
+	.button {
+		background-color: #fc0394;
+		padding  : hotpink;
+	}
 	.person-add-icon{
-		color: #4287f5;
+		color: #fc0394;
 		font-size: 40px;
 	}
 	.friend-text{
@@ -90,7 +97,7 @@
 
 					<!-- If Auth user is viewing their own profile -->
 					{% if is_self %}
-					<a  class="mt-4 btn btn-primary" href="{% url 'account:edit' user_id=id %}">Update</a>
+					<a  class="mt-4 btn button btn-primary" href="{% url 'account:edit' user_id=id %}">Update</a>
 					<div class="d-flex flex-column mt-4">
 						<a class="m-auto" href="{% url 'password_change' %}">Change password</a>
 					</div>
@@ -150,7 +157,7 @@
 		  		<div class="d-flex flex-column pt-4">
 					<a href="#">
 						<div class="d-flex flex-row align-items-center justify-content-center icon-container">
-							<span class="material-icons mr-2 friends-icon">contact_page</span><span class="friend-text">Friends ({{friends|length}})</span>
+							<span class="material-icons mr-2 friends-icon">contact_page</span><span class="friend-text"><a href="{% url 'account:user_friends' account.id %}">Friends ({{friends|length}})</a></span>
 						</div>
 					</a>
 				</div>

@@ -8,7 +8,7 @@ class FriendList(models.Model):
     friends = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name="friends")
 
     def __str__(self):
-        return self.username
+        return self.user.username
 
     def add_friend(self, account):
         """
